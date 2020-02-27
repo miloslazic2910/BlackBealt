@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "My Final Project";
+}
+@model Idea
+
+<h1>Hi @ViewBag.CurrentUser.UserAlias</h1>
+<a class="btn btn-light" style="float: right;" href="logout">Log Out</a>
+<form action="/newidea" method="POST">
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <label class="btn btn-light" for="UserIdea">Post Idea:</label>
+        
+        <div class="form-group">                  
+        <input class="col col-sm-8" id="UserIdea" asp-for="UserIdea">
+        <span asp-validation-for="UserIdea"></span>
+        </div>
+        <input  class="btn btn-light" type="submit" name="submit" value="Comment">
+    </fieldset>
+</form>
+
+@{
+    foreach (var idea in ViewBag.AllIdeas)
+    {
+        <div class="container">
+  
+
+        <a href="/users/@idea.UserId">@idea.Owner.UserAlias</a>
+        
+        <p class="">@idea.UserIdea</p>
+        </div>
+        <p>
+            @if(idea.UserId == ViewBag.CurrentUser.UserId)
+            {
+                <a class="btn btn-light" href="/deleteidea/@idea.IdeaId">Delete</a>
+            }
+        @{
+            bool print = true;
+            foreach (var like in idea.LikedBy)
+            {
+                if (like.UserId == ViewBag.CurrentUser.UserId)
+                    {
+                        print = false; 
+                    }
+            }
+            if(print)
+            {
+                <a class="btn btn-light" href="/like/@idea.IdeaId">Like</a>
+            }
+            else
+            {
+                <span class="btn btn-light" >Already Liked!</span>
+            }
+        }
+          <a  href="/bright_ideas/@idea.IdeaId">@idea.LikedBy.Count People</a> </p>
+    }
+}
+

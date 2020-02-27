@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "My Final Project";
+}
+<a style="float: right;" class="btn btn-light" href="/bright_ideas">Home</a>   <a style="float: right;" class="btn btn-light" href="/logout">Logout</a>
+<ul>
+  <li class="btn btn-light" >Name: @ViewBag.SelectedUser.UserName</li>
+  <li class="btn btn-light" >Alias: @ViewBag.SelectedUser.UserAlias</li>
+  <li class="btn btn-light" >Email: @ViewBag.SelectedUser.Email</li>
+</ul>
+<hr>
+<h1><p>Total number of Ideas:<span class="badge badge-light">@ViewBag.SelectedUser.UsersIdeas.Count</span> </p></h1>
+<h1><p>People Who Liked :<span class="badge badge-light">@ViewBag.SelectedUser.UserLikes.Count</span> </p></h1>
